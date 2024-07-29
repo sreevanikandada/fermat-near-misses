@@ -1,0 +1,23 @@
+// Title: Fermat's Last Theorem Near Misses Search
+// File Name: fermat_near_misses.py
+// External Files: N/A
+// Files Created: N/A
+// Programmers: [Your Name] ([Your Email]), [Partner's Name] ([Partner's Email])
+// Course Number and Section: [Course Number] - [Section Number]
+// Date Completed: [Submission Date]
+// Program Description: This program searches for near misses to Fermat's Last Theorem.
+// Resources Used: [List any resources here]
+
+def get_input():
+    """Prompts user for the power n and maximum value k, and returns them."""
+    n = int(input("Enter the power n (2 < n < 12): "))
+    while not (2 < n < 12):
+        print("Invalid input. n must be between 2 and 12.")
+        n = int(input("Enter the power n (2 < n < 12): "))
+    
+    k = int(input("Enter the maximum value k (k > 10): "))
+    while k <= 10:
+        print("Invalid input. k must be greater than 10.")
+        k = int(input("Enter the maximum value k (k > 10): "))
+    
+    return n, k
