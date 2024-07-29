@@ -1,0 +1,106 @@
+// Title: Fermat's Last Theorem Near Misses Search
+// File Name: fermat_near_misses.py
+// External Files: N/A
+// Files Created: N/A
+// Programmers: [Your Name] ([Your Email]), [Partner's Name] ([Partner's Email])
+// Course Number and Section: [Course Number] - [Section Number]
+// Date Completed: [Submission Date]
+// Program Description: This program searches for near misses to Fermat's Last Theorem.
+// Resources Used: [List any resources here]
+
+def get_input():
+    """Prompts user for the power n and maximum value k, and returns them."""
+    n = int(input("Enter the power n (2 < n < 12): "))
+    while not (2 < n < 12):
+        print("Invalid input. n must be between 2 and 12.")
+        n = int(input("Enter the power n (2 < n < 12): "))
+    
+    k = int(input("Enter the maximum value k (k > 10): "))
+    while k <= 10:
+        print("Invalid input. k must be greater than 10.")
+        k = int(input("Enter the maximum value k (k > 10): "))
+    
+    return n, k
+
+
+def find_near_misses(n, k):
+    """Find and report near misses for the given power n and range up to k."""
+    min_relative_miss = float('inf')
+    min_x, min_y, min_z = None, None, None
+    
+    for x in range(10, k + 1):
+        for y in range(10, k + 1):
+            value = x * n + y * n
+            z = 1
+            while (z ** n) < value:
+                z += 1
+            
+            # Calculate misses
+            z_n = z ** n
+            next_z_n = (z + 1) ** n
+            miss1 = abs(value - z_n)
+            miss2 = abs(next_z_n - value)
+            relative_miss = min(miss1, miss2) / value
+            
+            if relative_miss < min_relative_miss:
+                min_relative_miss = relative_miss
+                min_x, min_y, min_z = x, y, z
+                print(f"New smallest relative miss found: x={x}, y={y}, z={z}, "
+                      f"actual miss={min(min_miss1, min_miss2)}, relative miss={min_relative_miss:.10f}")
+    
+    print(f"\nSmallest relative miss overall: x={min_x}, y={min_y}, z={min_z}, "
+          f"relative miss={min_relative_miss:.10f}")
+
+
+
+def main():
+    """Main function to handle user input and execute the search."""
+    n, k = get_input()
+    find_near_misses(n, k)
+    
+    # Wait for user input to close
+    input("Press Enter to exit...")
+    
+if _name_ == "_main_":
+    main()
+
+
+
+def find_near_misses(n, k):
+    """
+    Searches for the smallest relative miss for given power n and range up to k.
+    
+    Parameters:
+    n (int): The power to use in the formula.
+    k (int): The upper limit for x and y.
+    """
+    # Initialization
+    min_relative_miss = float('inf')
+    min_x, min_y, min_z = None, None, None
+    
+    # Iterate over all x and y values
+    for x in range(10, k + 1):
+        for y in range(10, k + 1):
+            value = x * n + y * n
+            z = 1
+            
+            # Find the closest z where z^n is just below or above the value
+            while (z ** n) < value:
+                z += 1
+            
+            # Calculate differences and relative miss
+            z_n = z ** n
+            next_z_n = (z + 1) ** n
+            miss1 = abs(value - z_n)
+            miss2 = abs(next_z_n - value)
+            relative_miss = min(miss1, miss2) / value
+            
+            # Update smallest relative miss found
+            if relative_miss < min_relative_miss:
+                min_relative_miss = relative_miss
+                min_x, min_y, min_z = x, y, z
+                print(f"New smallest relative miss found: x={x}, y={y}, z={z}, "
+                      f"actual miss={min(min_miss1, min_miss2)}, relative miss={min_relative_miss:.10f}")
+    
+    print(f"\nSmallest relative miss overall: x={min_x}, y={min_y}, z={min_z}, "
+          f"relative miss={min_relative_miss:.10f}")
